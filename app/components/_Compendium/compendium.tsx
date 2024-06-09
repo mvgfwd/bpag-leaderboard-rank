@@ -1,6 +1,7 @@
 import { RootState, useAppDispatch, useAppSelector } from "@/app/_store/store";
 import React from "react";
 import Image from "next/image";
+import instagram from "../../_assets/_image/instagram.svg";
 import rank1 from "../../_assets/_image/champion.png";
 import rank2 from "../../_assets/_image/second.png";
 import rank3 from "../../_assets/_image/third.png";
@@ -8,6 +9,7 @@ import knight from "../../_assets/_image/knight.png";
 import { PlayerStats } from "@/app/_type/player";
 import { isOpenHmb } from "@/app/_store/headerhamburger";
 import Loader from "../loader/loader";
+import "./compendium.css";
 
 function Compendium() {
   const kompedium = useAppSelector((state: RootState) => state.gamesRank);
@@ -23,12 +25,25 @@ function Compendium() {
 
   let initContent = (
     <div
-      className="flex w-screen justify-center absolute top-[50%] left-[50%] translate-x-[-50%]"
+      className="w-screen flex flex-col items-center absolute top-[50%] left-[50%] translate-x-[-50%]"
       onClick={() => {
         dispatch(isOpenHmb(false));
       }}
     >
-      <Image src={knight} alt="Welcome Knight" className="sm:scale-90 mt-14" />
+      <Image
+        src={knight}
+        alt="Welcome Knight"
+        className="sm:scale-90 mt-14 sm:mt-6"
+      />
+      <div
+        className="flex justify-center w-fit cursor-pointer"
+        onClick={() =>
+          window.open("https://www.instagram.com/bpaeroguild/", "_blank")
+        }
+      >
+        <Image src={instagram} alt="instagram" className="ig" />
+        <span className="ml-1 text-sm text-bp-pri-700">bpaeroguild</span>
+      </div>
     </div>
   );
 
@@ -137,7 +152,7 @@ function Compendium() {
         </div>
         {/* END OF 3 BESAR */}
         <div
-          className={`h-[30vh] overflow-auto hideScrollbar  ${
+          className={`h-[30vh] sm:h-[25vh] overflow-auto hideScrollbar  ${
             belowRankFour.length > 3
               ? "border border-bp-sec-200 rounded-md px-1 pt-2 pb-1"
               : ""
@@ -149,7 +164,7 @@ function Compendium() {
               className="flex mb-2 pr-2 justify-between rounded-xl h-16 border-2 border-bp-sec-300 items-center"
             >
               <div className="flex items-center justify-center">
-                <span className="h-[50px] w-[50px] items-center text-white text-xl flex pl-5">
+                <span className="h-[50px] w-[50px] items-center text-white text-lg flex pl-4">
                   {rank++}
                 </span>
                 <span
@@ -187,8 +202,8 @@ function Compendium() {
 
   function konsolin() {
     dispatch(isOpenHmb(false));
-    console.log("hehe", kompedium[arrIdx].players.length, selectedGame);
   }
+
   return (
     <div
       onClick={konsolin}

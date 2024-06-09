@@ -5,6 +5,8 @@ import gameIndexSlice from "./arridx";
 import hamburgerSlice from "./headerhamburger";
 import pickedGameSlice from "./pickedgame";
 import loadingSlice from "./isloading";
+import detailGameLinkSlice from "./detaillink";
+import tcSlice from "./tcmodal";
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +15,8 @@ export const store = configureStore({
     hamburger: hamburgerSlice,
     pickedGame: pickedGameSlice,
     loading: loadingSlice,
+    detailLink: detailGameLinkSlice,
+    tc: tcSlice,
   },
   //   middleware: (getDefaultMiddleware) =>
   //     getDefaultMiddleware({ serializableCheck: false }),

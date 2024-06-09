@@ -14,7 +14,13 @@ import {
 import { PlayerStats } from "@/app/_type/player";
 import { db } from "@/firebase/firebase";
 // import { useDispatch, useSelector } from "react-redux";
-import { coupSave, loveletterSave, sixnimmtSave } from "../../../_store/slicer";
+import {
+  coupSave,
+  loveletterSave,
+  sixnimmtSave,
+  sushigoSave,
+  ttrSave,
+} from "../../../_store/slicer";
 import {
   useAppSelector,
   useAppDispatch,
@@ -25,12 +31,15 @@ import { isOpenHmb } from "@/app/_store/headerhamburger";
 import { gameIndex } from "@/app/_store/arridx";
 import { isLoading } from "@/app/_store/isloading";
 import { selectedGame } from "@/app/_store/pickedgame";
+import { linkDetail } from "@/app/_store/detaillink";
 
 function Header() {
-  const dispatch: any = useAppDispatch();
+  const dispatch = useAppDispatch();
   const coupData = useAppSelector((state: RootState) => state.gamesRank[0]);
   const llData = useAppSelector((state: RootState) => state.gamesRank[1]);
   const sixnimmtData = useAppSelector((state: RootState) => state.gamesRank[2]);
+  const ttrData = useAppSelector((state: RootState) => state.gamesRank[3]);
+  const sushiGoData = useAppSelector((state: RootState) => state.gamesRank[4]);
   const hamburgerMenu = useAppSelector((state: RootState) => state.hamburger);
   const gameDb = collection(db, "games");
 
@@ -52,13 +61,14 @@ function Header() {
         const coupRankingCollection = collection(coupDoc, "playerRanking");
         dispatch(gameIndex(0));
         if (coupData.players.length > 0) {
-          console.log(coupData);
           dispatch(isLoading(false));
           dispatch(selectedGame(game));
           return;
         }
         const coupQuerySnapshot = await getDocs(coupRankingCollection);
         let coupArrayPlayer: PlayerStats[] = [];
+        const coupSnap = await getDoc(coupDoc);
+        const coupLink = coupSnap.data();
         coupQuerySnapshot.forEach((doc) => {
           if (doc) {
             const data: any = doc.data();
@@ -68,7 +78,13 @@ function Header() {
         coupArrayPlayer.sort((a, b) => {
           return a.point < b.point ? 1 : b.point < a.point ? -1 : 0;
         });
-        dispatch(coupSave(coupArrayPlayer));
+        dispatch(
+          coupSave({
+            gameName: "coup",
+            players: coupArrayPlayer,
+            gameLinkRef: coupLink!.gameDetailLink,
+          })
+        );
         break;
 
       case "Love Letter":
@@ -76,13 +92,14 @@ function Header() {
         const llRankingCollection = collection(llDoc, "playerRanking");
         dispatch(gameIndex(1));
         if (llData.players.length > 0) {
-          console.log(llData);
           dispatch(isLoading(false));
           dispatch(selectedGame(game));
           return;
         }
         const llQuerySnapshot = await getDocs(llRankingCollection);
         let llArrayPlayer: PlayerStats[] = [];
+        const llSnap = await getDoc(llDoc);
+        const llLink = llSnap.data();
         llQuerySnapshot.forEach((doc) => {
           if (doc) {
             const data: any = doc.data();
@@ -92,7 +109,13 @@ function Header() {
         llArrayPlayer.sort((a, b) => {
           return a.point < b.point ? 1 : b.point < a.point ? -1 : 0;
         });
-        dispatch(loveletterSave(llArrayPlayer));
+        dispatch(
+          loveletterSave({
+            gameName: "loveletter",
+            players: llArrayPlayer,
+            gameLinkRef: llLink!.gameDetailLink,
+          })
+        );
         break;
 
       case "Six Nimmt":
@@ -103,13 +126,14 @@ function Header() {
         );
         dispatch(gameIndex(2));
         if (sixnimmtData.players.length > 0) {
-          console.log(sixnimmtData);
           dispatch(isLoading(false));
           dispatch(selectedGame(game));
           return;
         }
         const sixnimmtQuerySnapshot = await getDocs(sixnimmtRankingCollection);
         let sixNimmtArrayPlayer: PlayerStats[] = [];
+        const sixNimmtSnap = await getDoc(sixnimmtDoc);
+        const sixNimmtLink = sixNimmtSnap.data();
         sixnimmtQuerySnapshot.forEach((doc) => {
           if (doc) {
             const data: any = doc.data();
@@ -119,7 +143,78 @@ function Header() {
         sixNimmtArrayPlayer.sort((a, b) => {
           return a.point < b.point ? 1 : b.point < a.point ? -1 : 0;
         });
-        dispatch(sixnimmtSave(sixNimmtArrayPlayer));
+        dispatch(
+          sixnimmtSave({
+            gameName: "sixnimmt",
+            players: sixNimmtArrayPlayer,
+            gameLinkRef: sixNimmtLink!.gameDetailLink,
+          })
+        );
+        break;
+
+      case "Ticket To Ride":
+        const ttrDoc = doc(gameDb, "ttr");
+        const ttrRankingCollection = collection(ttrDoc, "playerRanking");
+        dispatch(gameIndex(3));
+        if (ttrData.players.length > 0) {
+          dispatch(isLoading(false));
+          dispatch(selectedGame(game));
+          return;
+        }
+        const ttrQuerySnapshot = await getDocs(ttrRankingCollection);
+        let ttrArrayPlayer: PlayerStats[] = [];
+        const ttrSnap = await getDoc(ttrDoc);
+        const ttrLink = ttrSnap.data();
+        ttrQuerySnapshot.forEach((doc) => {
+          if (doc) {
+            const data: any = doc.data();
+            ttrArrayPlayer.push(data);
+          }
+        });
+        ttrArrayPlayer.sort((a, b) => {
+          return a.point < b.point ? 1 : b.point < a.point ? -1 : 0;
+        });
+        dispatch(
+          ttrSave({
+            gameName: "ttr",
+            players: ttrArrayPlayer,
+            gameLinkRef: ttrLink!.gameDetailLink,
+          })
+        );
+        break;
+
+      case "Sushi Go":
+        const sushiGoDoc = doc(gameDb, "sushigo");
+        const sushiGoRankingCollection = collection(
+          sushiGoDoc,
+          "playerRanking"
+        );
+        dispatch(gameIndex(4));
+        if (sushiGoData.players.length > 0) {
+          dispatch(isLoading(false));
+          dispatch(selectedGame(game));
+          return;
+        }
+        const sushiGoQuerySnapshot = await getDocs(sushiGoRankingCollection);
+        let sushiGoArrayPlayer: PlayerStats[] = [];
+        const sushiGoSnap = await getDoc(sushiGoDoc);
+        const sushiGoLink = sushiGoSnap.data();
+        sushiGoQuerySnapshot.forEach((doc) => {
+          if (doc) {
+            const data: any = doc.data();
+            sushiGoArrayPlayer.push(data);
+          }
+        });
+        sushiGoArrayPlayer.sort((a, b) => {
+          return a.point < b.point ? 1 : b.point < a.point ? -1 : 0;
+        });
+        dispatch(
+          sushigoSave({
+            gameName: "ttr",
+            players: sushiGoArrayPlayer,
+            gameLinkRef: sushiGoLink!.gameDetailLink,
+          })
+        );
         break;
     }
     dispatch(isLoading(false));
@@ -136,13 +231,13 @@ function Header() {
   if (hamburgerMenu) {
     dropdown = (
       <ul
-        className={`toggleDropdown example whitespace-nowrap text-sm absolute top-6 rounded-[4px] right-0 flex flex-col bg-bp-pri-500 items-end overflow-auto h-[142px] ${
+        className={`toggleDropdown example whitespace-nowrap text-sm absolute top-7 border-2 border-bp-red-500 border-opacity-50 shadow-md rounded-[6px] right-[-5px] flex flex-col bg-bp-pri-500 items-end overflow-auto h-[142px] ${
           !hamburgerMenu ? "menuclose" : ""
         }`}
       >
         {arrOfGames.map((e) => (
           <li
-            className="z-10 pl-5 text-[17px] hover:bg-bp-pri-400 font-ibm text-bp-sec-800 px-2 py-[5px] w-[100%] text-right border border-b-bp-pri-700 border-t-0 border-x-0 cursor-pointer"
+            className="z-10 pl-5 text-[17px] hover:bg-bp-pri-400 font-eczar px-2 py-[6px] w-[100%] text-right border border-b-bp-pri-700 border-t-0 border-x-0 cursor-pointer font-medium text-bp-brown-500"
             key={e}
             onClick={() => {
               pickedGame(e);
@@ -155,27 +250,28 @@ function Header() {
     );
   }
 
+  function backToInit() {
+    dispatch(selectedGame(""));
+  }
+
   return (
-    <div className="flex px-0 sm:px-6 justify-between h-20 bg-bp-sec-300 items-center opacity-95 sm:h-16 sm:rounded-b-lg">
+    <div className="relative flex justify-around px-0 sm:px-[7%] h-20 bg-bp-sec-300 items-center opacity-95 sm:h-16 sm:rounded-b-lg">
       <Image
-        // onClick={testMethod}
+        onClick={backToInit}
         src={imagetest}
         alt="The Logo"
-        className="h-[80px] w-[80px] ml-24 sm:ml-0 sm:mr-5 sm:h-[60px] sm:w-[60px] "
+        className="h-[80px] w-[80px] ml-24 sm:ml-0 sm:mr-3 sm:h-[55px] sm:w-[55px] "
         priority
       />
-      <span className="text-bp-sec-900 mr-8 text-[32px] font-eczar">
+      <span className="text-bp-sec-900 text-[32px] mt-1 font-eczar">
         LEADERBOARD
       </span>
-      <div className="mr-24 relative flex flex-row">
-        <span
-          onClick={() => onClickOpenHmbr()}
-          className="text-bp-sec-900 sm:font-semibold text-[33px] cursor-pointer rounded-full"
-        >
-          {" "}
-          ≡{" "}
-        </span>
-        {dropdown}
+      <div
+        onClick={() => onClickOpenHmbr()}
+        className="mr-24 ml-8 sm:ml-4 relative text-bp-sec-900 sm:font-semibold text-[33px] cursor-pointer rounded-full"
+      >
+        {" "}
+        ≡ {dropdown}
       </div>
     </div>
   );

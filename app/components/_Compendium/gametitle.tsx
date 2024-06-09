@@ -3,20 +3,40 @@ import { useSelector } from "react-redux";
 import { RootState, useAppDispatch, useAppSelector } from "@/app/_store/store";
 import { useDispatch } from "react-redux";
 import { isOpenHmb } from "@/app/_store/headerhamburger";
+import UpdateTime from "../_UpdateTime/updatetime";
 
 export default function PickedGame() {
   const dispatch = useDispatch();
   const game = useSelector((state: RootState) => state.pickedGame);
+  const gameIndex = useSelector((state: RootState) => state.gameIndex);
+  const loading = useSelector((state: RootState) => state.loading);
+  const linkDet = useSelector(
+    (state: RootState) => state.gamesRank[gameIndex].gameLinkRef
+  );
+
+  const openLink = () => {
+    window.open(linkDet, "_blank");
+  };
+
   return (
     <div
-      className="flex justify-center pt-6"
+      className="flex justify-center sm:mt-4 sm:pt-0 pt-6"
       onClick={() => dispatch(isOpenHmb(false))}
     >
-      <div className="font-eczar text-xl text-bp-sec-50 mb-6 mt-3">
+      <div className="font-eczar text-xl text-bp-sec-50 mb-2">
         {game ? (
-          <span className="flex text-[40px] mb-6 font-ibm text-bp-pri-50 mt-0">
-            {game}
-          </span>
+          <div className="flex flex-col sm:text-[36px] text-[44px] font-ibm text-bp-pri-50 mt-0">
+            <span className="text-center font-ibm font-semibold text-bp-pri-100">
+              {loading ? "..." : game}
+            </span>
+            <span
+              onClick={openLink}
+              className="text-sm text-bp-sec-300 text-center sm:mt-1 mt-2"
+            >
+              find game-detail ↗
+            </span>
+            <UpdateTime></UpdateTime>
+          </div>
         ) : (
           <div className="flex flex-col items-center mt-4 font-eczar text-lg sm:text-xl font-normal">
             <span className="mb-1 font-ibm text-lg">

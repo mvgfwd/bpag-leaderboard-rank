@@ -6,22 +6,27 @@ const initialState: PlayerRank[] = [
   {
     gameName: "coup",
     players: [],
+    gameLinkRef: "",
   },
   {
     gameName: "loveletter",
     players: [],
+    gameLinkRef: "",
   },
   {
     gameName: "sixnimmt",
     players: [],
+    gameLinkRef: "",
   },
   {
     gameName: "ttr",
     players: [],
+    gameLinkRef: "",
   },
   {
     gameName: "sushigo",
     players: [],
+    gameLinkRef: "",
   },
 ];
 
@@ -29,35 +34,40 @@ export const gamesSlice = createSlice({
   name: "gamesRank",
   initialState,
   reducers: {
-    coupSave: (state, action: PayloadAction<PlayerStats[]>) => {
-      action.payload.map((e) => {
-        const stateIdx = state.findIndex((e) => e.gameName === "coup");
+    coupSave: (state, action: PayloadAction<PlayerRank>) => {
+      const stateIdx = state.findIndex((e) => e.gameName === "coup");
+      action.payload.players.map((e) => {
         state[stateIdx].players.push(e);
       });
+      state[stateIdx].gameLinkRef = action.payload.gameLinkRef;
     },
-    loveletterSave: (state, action: PayloadAction<PlayerStats[]>) => {
-      action.payload.map((e) => {
-        const stateIdx = state.findIndex((e) => e.gameName === "loveletter");
+    loveletterSave: (state, action: PayloadAction<PlayerRank>) => {
+      const stateIdx = state.findIndex((e) => e.gameName === "loveletter");
+      action.payload.players.map((e) => {
         state[stateIdx].players.push(e);
       });
+      state[stateIdx].gameLinkRef = action.payload.gameLinkRef;
     },
-    sixnimmtSave: (state, action: PayloadAction<PlayerStats[]>) => {
-      action.payload.map((e) => {
-        const stateIdx = state.findIndex((e) => e.gameName === "sixnimmt");
+    sixnimmtSave: (state, action: PayloadAction<PlayerRank>) => {
+      const stateIdx = state.findIndex((e) => e.gameName === "sixnimmt");
+      action.payload.players.map((e) => {
         state[stateIdx].players.push(e);
       });
+      state[stateIdx].gameLinkRef = action.payload.gameLinkRef;
     },
-    ttrSave: (state, action: PayloadAction<PlayerStats[]>) => {
-      action.payload.map((e) => {
-        const stateIdx = state.findIndex((e) => e.gameName === "ttr");
+    ttrSave: (state, action: PayloadAction<PlayerRank>) => {
+      const stateIdx = state.findIndex((e) => e.gameName === "ttr");
+      action.payload.players.map((e) => {
         state[stateIdx].players.push(e);
       });
+      state[stateIdx].gameLinkRef = action.payload.gameLinkRef;
     },
-    sushigoSave: (state, action: PayloadAction<PlayerStats[]>) => {
-      action.payload.map((e) => {
-        const stateIdx = state.findIndex((e) => e.gameName === "sushigo");
+    sushigoSave: (state, action: PayloadAction<PlayerRank>) => {
+      const stateIdx = state.findIndex((e) => e.gameName === "sushigo");
+      action.payload.players.map((e) => {
         state[stateIdx].players.push(e);
       });
+      state[stateIdx].gameLinkRef = action.payload.gameLinkRef;
     },
   },
 });

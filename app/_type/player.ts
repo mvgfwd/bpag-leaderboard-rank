@@ -9,4 +9,5 @@ export interface PlayerStats {
 export interface PlayerRank {
   gameName: string;
   players: PlayerStats[];
+  gameLinkRef: string;
 }

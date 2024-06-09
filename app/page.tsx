@@ -7,6 +7,9 @@ import { store } from "./_store/store";
 import ReduxProvider from "./_store/reduxProvider";
 import Compendium from "./components/_Compendium/compendium";
 import PickedGame from "./components/_Compendium/gametitle";
+import UpdateTime from "./components/_UpdateTime/updatetime";
+import Modal from "./components/modal/modal";
+import TermCondition from "./components/_TermCondition/termcondition";
 
 export default function Home() {
   return (
@@ -15,6 +18,7 @@ export default function Home() {
         <Layout>
           <PickedGame></PickedGame>
           <Compendium></Compendium>
+          <TermCondition />
         </Layout>
       </div>
     </ReduxProvider>
