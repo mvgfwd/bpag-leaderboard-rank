@@ -20,6 +20,7 @@ import {
   sixnimmtSave,
   sushigoSave,
   ttrSave,
+  saboteurSave,
 } from "../../../_store/slicer";
 import {
   useAppSelector,
@@ -40,6 +41,7 @@ function Header() {
   const sixnimmtData = useAppSelector((state: RootState) => state.gamesRank[2]);
   const ttrData = useAppSelector((state: RootState) => state.gamesRank[3]);
   const sushiGoData = useAppSelector((state: RootState) => state.gamesRank[4]);
+  const saboteurData = useAppSelector((state: RootState) => state.gamesRank[5]);
   const hamburgerMenu = useAppSelector((state: RootState) => state.hamburger);
   const gameDb = collection(db, "games");
 
@@ -50,6 +52,7 @@ function Header() {
     "Six Nimmt",
     "Ticket To Ride",
     "Sushi Go",
+    "Saboteur",
   ];
 
   async function pickedGame(game: string) {
@@ -210,9 +213,43 @@ function Header() {
         });
         dispatch(
           sushigoSave({
-            gameName: "ttr",
+            gameName: "sushigo",
             players: sushiGoArrayPlayer,
             gameLinkRef: sushiGoLink!.gameDetailLink,
+          })
+        );
+        break;
+
+      case "Saboteur":
+        const saboteurDoc = doc(gameDb, "saboteur");
+        const saboteurRankingCollection = collection(
+          saboteurDoc,
+          "playerRanking"
+        );
+        dispatch(gameIndex(5));
+        if (saboteurData.players.length > 0) {
+          dispatch(isLoading(false));
+          dispatch(selectedGame(game));
+          return;
+        }
+        const saboteurQuerySnapshot = await getDocs(saboteurRankingCollection);
+        let saboteurArrayPlayer: PlayerStats[] = [];
+        const saboteurSnap = await getDoc(saboteurDoc);
+        const saboteurLink = saboteurSnap.data();
+        saboteurQuerySnapshot.forEach((doc) => {
+          if (doc) {
+            const data: any = doc.data();
+            saboteurArrayPlayer.push(data);
+          }
+        });
+        saboteurArrayPlayer.sort((a, b) => {
+          return a.point < b.point ? 1 : b.point < a.point ? -1 : 0;
+        });
+        dispatch(
+          saboteurSave({
+            gameName: "saboteur",
+            players: saboteurArrayPlayer,
+            gameLinkRef: saboteurLink!.gameDetailLink,
           })
         );
         break;

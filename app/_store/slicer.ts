@@ -28,6 +28,11 @@ const initialState: PlayerRank[] = [
     players: [],
     gameLinkRef: "",
   },
+  {
+    gameName: "saboteur",
+    players: [],
+    gameLinkRef: "",
+  },
 ];
 
 export const gamesSlice = createSlice({
@@ -69,11 +74,24 @@ export const gamesSlice = createSlice({
       });
       state[stateIdx].gameLinkRef = action.payload.gameLinkRef;
     },
+    saboteurSave: (state, action: PayloadAction<PlayerRank>) => {
+      const stateIdx = state.findIndex((e) => e.gameName === "saboteur");
+      action.payload.players.map((e) => {
+        state[stateIdx].players.push(e);
+      });
+      state[stateIdx].gameLinkRef = action.payload.gameLinkRef;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { coupSave, loveletterSave, sixnimmtSave, ttrSave, sushigoSave } =
-  gamesSlice.actions;
+export const {
+  coupSave,
+  loveletterSave,
+  sixnimmtSave,
+  ttrSave,
+  sushigoSave,
+  saboteurSave,
+} = gamesSlice.actions;
 
 export default gamesSlice.reducer;
