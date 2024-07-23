@@ -33,6 +33,11 @@ const initialState: PlayerRank[] = [
     players: [],
     gameLinkRef: "",
   },
+  {
+    gameName: "splendor",
+    players: [],
+    gameLinkRef: "",
+  },
 ];
 
 export const gamesSlice = createSlice({
@@ -81,6 +86,13 @@ export const gamesSlice = createSlice({
       });
       state[stateIdx].gameLinkRef = action.payload.gameLinkRef;
     },
+    splendorSave: (state, action: PayloadAction<PlayerRank>) => {
+      const stateIdx = state.findIndex((e) => e.gameName === "splendor");
+      action.payload.players.map((e) => {
+        state[stateIdx].players.push(e);
+      });
+      state[stateIdx].gameLinkRef = action.payload.gameLinkRef;
+    },
   },
 });
 
@@ -92,6 +104,7 @@ export const {
   ttrSave,
   sushigoSave,
   saboteurSave,
+  splendorSave,
 } = gamesSlice.actions;
 
 export default gamesSlice.reducer;

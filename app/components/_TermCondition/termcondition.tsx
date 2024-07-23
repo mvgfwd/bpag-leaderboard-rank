@@ -34,7 +34,17 @@ function TermCondition() {
       <span>
         9. Point distribution differ depending on how many players are playing.
         Point distribution can be{" "}
-        <span className="italic underline text-bp-sec-500">accessed here</span>
+        <span
+          onClick={() =>
+            window.open(
+              "https://drive.google.com/file/d/1JVnimhBJyYrL1tkN3InrBzFwI8qmnYtc/view?usp=sharing",
+              "_blank"
+            )
+          }
+          className="italic underline text-bp-sec-500"
+        >
+          accessed here
+        </span>
       </span>
     </div>
   );

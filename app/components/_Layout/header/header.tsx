@@ -11,7 +11,7 @@ import {
   getDocs,
   getFirestore,
 } from "firebase/firestore";
-import { PlayerStats } from "@/app/_type/player";
+import { PlayerRank, PlayerStats } from "@/app/_type/player";
 import { db } from "@/firebase/firebase";
 // import { useDispatch, useSelector } from "react-redux";
 import {
@@ -21,6 +21,7 @@ import {
   sushigoSave,
   ttrSave,
   saboteurSave,
+  splendorSave,
 } from "../../../_store/slicer";
 import {
   useAppSelector,
@@ -42,6 +43,7 @@ function Header() {
   const ttrData = useAppSelector((state: RootState) => state.gamesRank[3]);
   const sushiGoData = useAppSelector((state: RootState) => state.gamesRank[4]);
   const saboteurData = useAppSelector((state: RootState) => state.gamesRank[5]);
+  const splendorData = useAppSelector((state: RootState) => state.gamesRank[6]);
   const hamburgerMenu = useAppSelector((state: RootState) => state.hamburger);
   const gameDb = collection(db, "games");
 
@@ -53,6 +55,7 @@ function Header() {
     "Ticket To Ride",
     "Sushi Go",
     "Saboteur",
+    "Splendor",
   ];
 
   async function pickedGame(game: string) {
@@ -62,12 +65,8 @@ function Header() {
       case "Coup":
         const coupDoc = doc(gameDb, "coup");
         const coupRankingCollection = collection(coupDoc, "playerRanking");
-        dispatch(gameIndex(0));
-        if (coupData.players.length > 0) {
-          dispatch(isLoading(false));
-          dispatch(selectedGame(game));
-          return;
-        }
+        playerRankCheck(coupData, game, 0);
+        if (coupData.players.length > 0) return;
         const coupQuerySnapshot = await getDocs(coupRankingCollection);
         let coupArrayPlayer: PlayerStats[] = [];
         const coupSnap = await getDoc(coupDoc);
@@ -78,9 +77,7 @@ function Header() {
             coupArrayPlayer.push(data);
           }
         });
-        coupArrayPlayer.sort((a, b) => {
-          return a.point < b.point ? 1 : b.point < a.point ? -1 : 0;
-        });
+        sortRankingArray(coupArrayPlayer);
         dispatch(
           coupSave({
             gameName: "coup",
@@ -93,12 +90,8 @@ function Header() {
       case "Love Letter":
         const llDoc = doc(gameDb, "loveletter");
         const llRankingCollection = collection(llDoc, "playerRanking");
-        dispatch(gameIndex(1));
-        if (llData.players.length > 0) {
-          dispatch(isLoading(false));
-          dispatch(selectedGame(game));
-          return;
-        }
+        playerRankCheck(llData, game, 1);
+        if (llData.players.length > 0) return;
         const llQuerySnapshot = await getDocs(llRankingCollection);
         let llArrayPlayer: PlayerStats[] = [];
         const llSnap = await getDoc(llDoc);
@@ -112,6 +105,7 @@ function Header() {
         llArrayPlayer.sort((a, b) => {
           return a.point < b.point ? 1 : b.point < a.point ? -1 : 0;
         });
+        sortRankingArray(llArrayPlayer);
         dispatch(
           loveletterSave({
             gameName: "loveletter",
@@ -127,12 +121,8 @@ function Header() {
           sixnimmtDoc,
           "playerRanking"
         );
-        dispatch(gameIndex(2));
-        if (sixnimmtData.players.length > 0) {
-          dispatch(isLoading(false));
-          dispatch(selectedGame(game));
-          return;
-        }
+        playerRankCheck(sixnimmtData, game, 2);
+        if (sixnimmtData.players.length > 0) return;
         const sixnimmtQuerySnapshot = await getDocs(sixnimmtRankingCollection);
         let sixNimmtArrayPlayer: PlayerStats[] = [];
         const sixNimmtSnap = await getDoc(sixnimmtDoc);
@@ -143,9 +133,7 @@ function Header() {
             sixNimmtArrayPlayer.push(data);
           }
         });
-        sixNimmtArrayPlayer.sort((a, b) => {
-          return a.point < b.point ? 1 : b.point < a.point ? -1 : 0;
-        });
+        sortRankingArray(sixNimmtArrayPlayer);
         dispatch(
           sixnimmtSave({
             gameName: "sixnimmt",
@@ -158,12 +146,8 @@ function Header() {
       case "Ticket To Ride":
         const ttrDoc = doc(gameDb, "ttr");
         const ttrRankingCollection = collection(ttrDoc, "playerRanking");
-        dispatch(gameIndex(3));
-        if (ttrData.players.length > 0) {
-          dispatch(isLoading(false));
-          dispatch(selectedGame(game));
-          return;
-        }
+        playerRankCheck(ttrData, game, 3);
+        if (ttrData.players.length > 0) return;
         const ttrQuerySnapshot = await getDocs(ttrRankingCollection);
         let ttrArrayPlayer: PlayerStats[] = [];
         const ttrSnap = await getDoc(ttrDoc);
@@ -174,9 +158,7 @@ function Header() {
             ttrArrayPlayer.push(data);
           }
         });
-        ttrArrayPlayer.sort((a, b) => {
-          return a.point < b.point ? 1 : b.point < a.point ? -1 : 0;
-        });
+        sortRankingArray(ttrArrayPlayer);
         dispatch(
           ttrSave({
             gameName: "ttr",
@@ -192,12 +174,8 @@ function Header() {
           sushiGoDoc,
           "playerRanking"
         );
-        dispatch(gameIndex(4));
-        if (sushiGoData.players.length > 0) {
-          dispatch(isLoading(false));
-          dispatch(selectedGame(game));
-          return;
-        }
+        playerRankCheck(sushiGoData, game, 4);
+        if (sushiGoData.players.length > 0) return;
         const sushiGoQuerySnapshot = await getDocs(sushiGoRankingCollection);
         let sushiGoArrayPlayer: PlayerStats[] = [];
         const sushiGoSnap = await getDoc(sushiGoDoc);
@@ -211,6 +189,7 @@ function Header() {
         sushiGoArrayPlayer.sort((a, b) => {
           return a.point < b.point ? 1 : b.point < a.point ? -1 : 0;
         });
+        sortRankingArray(sushiGoArrayPlayer);
         dispatch(
           sushigoSave({
             gameName: "sushigo",
@@ -226,12 +205,8 @@ function Header() {
           saboteurDoc,
           "playerRanking"
         );
-        dispatch(gameIndex(5));
-        if (saboteurData.players.length > 0) {
-          dispatch(isLoading(false));
-          dispatch(selectedGame(game));
-          return;
-        }
+        playerRankCheck(saboteurData, game, 5);
+        if (saboteurData.players.length > 0) return;
         const saboteurQuerySnapshot = await getDocs(saboteurRankingCollection);
         let saboteurArrayPlayer: PlayerStats[] = [];
         const saboteurSnap = await getDoc(saboteurDoc);
@@ -242,14 +217,40 @@ function Header() {
             saboteurArrayPlayer.push(data);
           }
         });
-        saboteurArrayPlayer.sort((a, b) => {
-          return a.point < b.point ? 1 : b.point < a.point ? -1 : 0;
-        });
+        sortRankingArray(saboteurArrayPlayer);
         dispatch(
           saboteurSave({
             gameName: "saboteur",
             players: saboteurArrayPlayer,
             gameLinkRef: saboteurLink!.gameDetailLink,
+          })
+        );
+        break;
+
+      case "Splendor":
+        const splendorDoc = doc(gameDb, "splendor");
+        const splendorRankingCollection = collection(
+          splendorDoc,
+          "playerRanking"
+        );
+        playerRankCheck(splendorData, game, 6);
+        if (splendorData.players.length > 0) return;
+        const splendorQuerySnapshot = await getDocs(splendorRankingCollection);
+        let splendorArrayPlayer: PlayerStats[] = [];
+        const splendorSnap = await getDoc(splendorDoc);
+        const splendorLink = splendorSnap.data();
+        splendorQuerySnapshot.forEach((doc) => {
+          if (doc) {
+            const data: any = doc.data();
+            splendorArrayPlayer.push(data);
+          }
+        });
+        sortRankingArray(splendorArrayPlayer);
+        dispatch(
+          splendorSave({
+            gameName: "saboteur",
+            players: splendorArrayPlayer,
+            gameLinkRef: splendorLink!.gameDetailLink,
           })
         );
         break;
@@ -289,6 +290,33 @@ function Header() {
 
   function backToInit() {
     dispatch(selectedGame(""));
+  }
+
+  function sortRankingArray(arr: PlayerStats[]): PlayerStats[] {
+    arr.sort((a, b) => {
+      if (a.point === b.point) {
+        return a.point / a.playcycle < b.point / b.playcycle
+          ? 1
+          : b.point / b.playcycle < a.point / a.playcycle
+          ? -1
+          : 0;
+      } else {
+        return a.point < b.point ? 1 : b.point < a.point ? -1 : 0;
+      }
+    });
+    return arr;
+  }
+
+  function playerRankCheck(
+    arrPlayerRank: PlayerRank,
+    game: string,
+    gameIdx: number
+  ) {
+    dispatch(gameIndex(gameIdx));
+    if (arrPlayerRank.players.length > 0) {
+      dispatch(isLoading(false));
+      dispatch(selectedGame(game));
+    }
   }
 
   return (
