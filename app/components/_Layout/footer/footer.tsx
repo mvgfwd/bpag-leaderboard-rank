@@ -7,7 +7,7 @@ function Footer() {
 
   return (
     <div
-      className="absolute bottom-2 left-16 cursor-pointer sm:left-2 text-sm text-bp-sec-400 underline"
+      className="absolute bottom-2 left-24 cursor-pointer sm:left-2 text-sm text-bp-sec-400 active:text-bp-sec-600 underline"
       onClick={() => dispatch(showTC(true))}
     >
       <span>terms & condition</span>

@@ -42,14 +42,16 @@ function Compendium() {
         }
       >
         <Image src={instagram} alt="instagram" className="ig" />
-        <span className="ml-1 text-sm text-bp-pri-700">bpaeroguild</span>
+        <span className="ml-1 text-sm text-bp-pri-700 active:text-purple-500">
+          bpaeroguild
+        </span>
       </div>
     </div>
   );
 
   let content = (
     <div className="flex flex-col">
-      <div className="mb-1 flex relative bg-bp-pri-700 py-0.5">
+      <div className="mb-1.5 flex relative bg-bp-pri-700 py-0.5">
         <span className="text-white ml-3 mr-5">Rank</span>
         <span className="text-white ml-1">Heroes</span>
         <div className="absolute right-0">
@@ -207,7 +209,7 @@ function Compendium() {
   return (
     <div
       onClick={konsolin}
-      className="flex justify-center relative sm:px-1.5 flex-col px-20 sm:w-[100%]"
+      className="flex justify-center relative sm:px-1.5 flex-col px-24 sm:w-[100%]"
     >
       {isLoading ? <Loader /> : ""}
       {kompedium[arrIdx].players.length > 0 && !isLoading && selectedGame

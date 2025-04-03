@@ -31,7 +31,7 @@ export default function PickedGame() {
             </span>
             <span
               onClick={openLink}
-              className="text-sm text-bp-sec-300 text-center sm:mt-1 mt-2 hover:cursor-pointer"
+              className="text-sm text-bp-sec-300 text-center sm:mt-2 mt-4 hover:cursor-pointer"
             >
               find game-detail ↗
             </span>

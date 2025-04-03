@@ -269,7 +269,7 @@ function Header() {
   if (hamburgerMenu) {
     dropdown = (
       <ul
-        className={`toggleDropdown example whitespace-nowrap text-sm absolute top-7 border-2 border-bp-red-500 border-opacity-50 shadow-md rounded-[6px] right-[-5px] flex flex-col bg-bp-pri-500 items-end overflow-auto h-[142px] ${
+        className={`toggleDropdown example whitespace-nowrap text-sm absolute top-9 border-2 border-bp-red-500 border-opacity-50 shadow-md rounded-[6px] right-[-5px] flex flex-col bg-bp-pri-500 items-end overflow-auto h-[142px] ${
           !hamburgerMenu ? "menuclose" : ""
         }`}
       >
@@ -320,12 +320,12 @@ function Header() {
   }
 
   return (
-    <div className="relative flex justify-around px-0 sm:px-[7%] h-20 bg-bp-sec-300 items-center opacity-95 sm:h-16 sm:rounded-b-lg">
+    <div className="flex justify-between sm:px-4 px-24 h-20 bg-bp-sec-300 items-center opacity-95 sm:h-16 sm:rounded-b-lg">
       <Image
         onClick={backToInit}
         src={imagetest}
         alt="The Logo"
-        className="h-[80px] w-[80px] ml-24 sm:ml-0 sm:mr-3 sm:h-[55px] sm:w-[55px] "
+        className="h-[80px] w-[80px] sm:h-[55px] sm:w-[55px] cursor-pointer"
         priority
       />
       <span className="text-bp-sec-900 text-[32px] mt-1 font-eczar">
@@ -333,7 +333,7 @@ function Header() {
       </span>
       <div
         onClick={() => onClickOpenHmbr()}
-        className="mr-24 ml-8 sm:ml-4 relative text-bp-sec-900 sm:font-semibold text-[33px] cursor-pointer rounded-full"
+        className="relative h-[80px] w-[80px] sm:w-fit sm:h-fit flex items-center justify-end text-bp-sec-900 sm:font-semibold text-[33px] cursor-pointer hover:text-bp-sec-700"
       >
         {" "}
         ≡ {dropdown}

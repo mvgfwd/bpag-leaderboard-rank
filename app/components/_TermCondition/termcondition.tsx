@@ -29,7 +29,7 @@ function TermCondition() {
         7. Any change of ranking data, 'Last Updated' data will be updated
       </span>
       <span className="mb-1">
-        8. Leaderboard ranking will be updated weekly
+        8. Leaderboard ranking will be updated peridiocally.
       </span>
       <span>
         9. Point distribution differ depending on how many players are playing.
@@ -41,7 +41,7 @@ function TermCondition() {
               "_blank"
             )
           }
-          className="italic underline text-bp-sec-500"
+          className="italic underline text-bp-sec-600 active:text-bp-sec-500"
         >
           accessed here
         </span>
@@ -50,16 +50,14 @@ function TermCondition() {
   );
 
   return (
-    <div className={`${styles.popup} ${isTcShown ? styles.show : ""}`}>
-      {isTcShown ? (
+    <div className={`${styles.popup} ${isTcShown ? styles.show : styles.hide}`}>
+      {isTcShown && (
         <Modal
           backdropStyle={`${styles.show}`}
           contentStyle={`${styles.popupContent}`}
           title="Terms & Conditions"
           content={konten}
-        ></Modal>
-      ) : (
-        ""
+        />
       )}
     </div>
   );
