@@ -156,7 +156,7 @@ function Compendium() {
         <div
           className={`h-[30vh] sm:h-[25vh] overflow-auto hideScrollbar  ${
             belowRankFour.length > 3
-              ? "border border-bp-sec-200 rounded-md px-1 pt-2 pb-1"
+              ? "border border-bp-sec-400 rounded-sm px-1 pt-2 pb-1"
               : ""
           }`}
         >

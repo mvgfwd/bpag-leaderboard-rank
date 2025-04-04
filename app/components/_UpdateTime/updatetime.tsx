@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { collection, getDoc, doc, DocumentData } from "firebase/firestore";
 import { db } from "@/firebase/firebase";
-import { Observable } from "@reduxjs/toolkit";
 import { UpdateTimeDTO } from "@/app/_type/boardgame";
 
 function UpdateTime() {

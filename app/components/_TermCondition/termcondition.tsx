@@ -50,14 +50,16 @@ function TermCondition() {
   );
 
   return (
-    <div className={`${styles.popup} ${isTcShown ? styles.show : styles.hide}`}>
-      {isTcShown && (
+    <div className={`${styles.popup} ${isTcShown ? styles.show : ""}`}>
+      {isTcShown ? (
         <Modal
           backdropStyle={`${styles.show}`}
           contentStyle={`${styles.popupContent}`}
           title="Terms & Conditions"
           content={konten}
-        />
+        ></Modal>
+      ) : (
+        ""
       )}
     </div>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { RootState, useAppDispatch, useAppSelector } from "@/app/_store/store";
+import { RootState } from "@/app/_store/store";
 import { useDispatch } from "react-redux";
 import { isOpenHmb } from "@/app/_store/headerhamburger";
 import UpdateTime from "../_UpdateTime/updatetime";

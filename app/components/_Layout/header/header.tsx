@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import imagetest from "../../../_assets/_image/logo.png";
 import "../../../globals.css";
@@ -13,7 +13,6 @@ import {
 } from "firebase/firestore";
 import { PlayerRank, PlayerStats } from "@/app/_type/player";
 import { db } from "@/firebase/firebase";
-// import { useDispatch, useSelector } from "react-redux";
 import {
   coupSave,
   loveletterSave,
@@ -33,7 +32,6 @@ import { isOpenHmb } from "@/app/_store/headerhamburger";
 import { gameIndex } from "@/app/_store/arridx";
 import { isLoading } from "@/app/_store/isloading";
 import { selectedGame } from "@/app/_store/pickedgame";
-import { linkDetail } from "@/app/_store/detaillink";
 
 function Header() {
   const dispatch = useAppDispatch();
@@ -320,12 +318,12 @@ function Header() {
   }
 
   return (
-    <div className="flex justify-between sm:px-4 px-24 h-20 bg-bp-sec-300 items-center opacity-95 sm:h-16 sm:rounded-b-lg">
+    <div className="sticky left-0 right-0 top-0 flex justify-between sm:px-4 px-24 h-20 bg-bp-sec-300 items-center opacity-95 sm:h-16 sm:rounded-b-md">
       <Image
         onClick={backToInit}
         src={imagetest}
         alt="The Logo"
-        className="h-[80px] w-[80px] sm:h-[55px] sm:w-[55px] cursor-pointer"
+        className="h-[80px] w-[80px] hover:scale-105 duration-150 sm:h-[55px] sm:w-[55px] cursor-pointer"
         priority
       />
       <span className="text-bp-sec-900 text-[32px] mt-1 font-eczar">
@@ -338,7 +336,7 @@ function Header() {
         <span
           className={`hover:text-bp-sec-700 duration-150 ${
             hamburgerMenu
-              ? "rotate-90 text-bp-pri-500"
+              ? "rotate-90 text-bp-pri-500 hover:text-bp-pri-500"
               : "rotate-0 text-bp-sec-900"
           }`}
         >
