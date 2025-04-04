@@ -6,7 +6,7 @@ function Layout(props: any) {
   return (
     <div>
       <Header />
-      <div className="h-[calc(100vh-80px)] border border-red-500 sm:h-[calc(100vh-64px)]">
+      <div className="h-[calc(100vh-80px)] sm:h-[calc(100vh-64px)]">
         {props.children}
       </div>
       <Footer />
