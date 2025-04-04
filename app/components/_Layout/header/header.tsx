@@ -331,7 +331,7 @@ function Header() {
       </span>
       <div
         onClick={() => onClickOpenHmbr()}
-        className="relative h-[80px] w-[80px] sm:w-fit sm:h-fit flex items-center justify-end sm:font-semibold text-[24px] sm:text-[20px] font-bold cursor-pointer"
+        className="relative h-[80px] w-[80px] sm:w-fit sm:h-fit flex items-center justify-end sm:font-semibold text-[24px] sm:text-[20px] font-bold cursor-pointer text-bp-sec-900"
       >
         <span
           className={`hover:text-bp-sec-700 duration-150 ${
