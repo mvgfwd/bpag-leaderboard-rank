@@ -36,13 +36,13 @@ function Compendium() {
         className="sm:scale-90 mt-14 sm:mt-6"
       />
       <div
-        className="flex justify-center w-fit cursor-pointer"
+        className="flex justify-center w-fit cursor-pointer opacity-80 hover:opacity-100"
         onClick={() =>
           window.open("https://www.instagram.com/bpaeroguild/", "_blank")
         }
       >
         <Image src={instagram} alt="instagram" className="ig" />
-        <span className="ml-1 text-sm text-bp-pri-700 active:text-purple-500">
+        <span className="ml-1 text-sm text-bp-pri-600 active:text-purple-500">
           bpaeroguild
         </span>
       </div>

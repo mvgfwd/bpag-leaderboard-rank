@@ -1,6 +1,6 @@
 {
   "name": "boardgame-leaderboard",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -17,6 +17,7 @@
     "react-dom": "^18",
     "react-redux": "^9.1.0",
     "redux-persist": "^6.0.0",
+    "sharp": "^0.33.5",
     "tailwindcss": "^3.4.1"
   },
   "devDependencies": {

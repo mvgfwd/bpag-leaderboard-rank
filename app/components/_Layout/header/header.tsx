@@ -269,7 +269,7 @@ function Header() {
   if (hamburgerMenu) {
     dropdown = (
       <ul
-        className={`toggleDropdown example whitespace-nowrap text-sm absolute top-9 border-2 border-bp-red-500 border-opacity-50 shadow-md rounded-[6px] right-[-5px] flex flex-col bg-bp-pri-500 items-end overflow-auto h-[142px] ${
+        className={`toggleDropdown example whitespace-nowrap text-sm absolute top-14 sm:top-9 border-2 border-bp-red-500 border-opacity-50 shadow-md rounded-[6px] right-[-5px] flex flex-col bg-bp-pri-500 items-end overflow-auto h-[142px] ${
           !hamburgerMenu ? "menuclose" : ""
         }`}
       >
@@ -333,10 +333,18 @@ function Header() {
       </span>
       <div
         onClick={() => onClickOpenHmbr()}
-        className="relative h-[80px] w-[80px] sm:w-fit sm:h-fit flex items-center justify-end text-bp-sec-900 sm:font-semibold text-[33px] cursor-pointer hover:text-bp-sec-700"
+        className="relative h-[80px] w-[80px] sm:w-fit sm:h-fit flex items-center justify-end sm:font-semibold text-[24px] sm:text-[20px] font-bold cursor-pointer"
       >
-        {" "}
-        ≡ {dropdown}
+        <span
+          className={`hover:text-bp-sec-700 duration-150 ${
+            hamburgerMenu
+              ? "rotate-90 text-bp-pri-500"
+              : "rotate-0 text-bp-sec-900"
+          }`}
+        >
+          &#9776;
+        </span>
+        {dropdown}
       </div>
     </div>
   );
