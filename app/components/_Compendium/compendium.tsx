@@ -124,7 +124,7 @@ function Compendium() {
           </div>
         </div>
 
-        <div className="flex relative mb-3 bg-bp-sec-800 pr-2 justify-between rounded-xl h-16 border-2 border-bp-pri-100 items-center">
+        <div className="flex relative mb-2 bg-bp-sec-800 pr-2 justify-between rounded-xl h-16 border-2 border-bp-pri-100 items-center">
           <div className="flex items-center">
             <Image src={rank3} alt={"Champion"} className="h-[50px] w-[50px]" />
             <span className="text-xl mt-0.5 ml-4 font-ibm text-bp-pri-100">

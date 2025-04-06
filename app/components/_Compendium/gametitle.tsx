@@ -20,7 +20,7 @@ export default function PickedGame() {
 
   return (
     <div
-      className="flex justify-center sm:mt-4 sm:pt-0 pt-6"
+      className="flex justify-center sm:mt-4 sm:pt-4 pt-6"
       onClick={() => dispatch(isOpenHmb(false))}
     >
       <div className="font-eczar text-xl text-bp-sec-50 mb-2">
@@ -31,7 +31,7 @@ export default function PickedGame() {
             </span>
             <span
               onClick={openLink}
-              className="text-sm text-bp-sec-300 hover:text-bp-sec-200 text-center sm:mt-2 mt-4 cursor-pointer hover:underline"
+              className="text-sm text-bp-sec-300 hover:text-bp-sec-200 text-center sm:mt-[5px] mt-4 cursor-pointer hover:underline"
             >
               find game-detail ↗
             </span>

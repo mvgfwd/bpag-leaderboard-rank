@@ -267,7 +267,7 @@ function Header() {
   if (hamburgerMenu) {
     dropdown = (
       <ul
-        className={`toggleDropdown example whitespace-nowrap text-sm absolute top-14 sm:top-9 border-2 border-bp-red-500 border-opacity-50 shadow-md rounded-[6px] right-[-5px] flex flex-col bg-bp-pri-500 items-end overflow-auto h-[142px] ${
+        className={`toggleDropdown example whitespace-nowrap text-sm absolute top-14 sm:top-7 border-2 border-bp-red-500 border-opacity-50 shadow-md rounded-[6px] right-[-5px] flex flex-col bg-bp-pri-500 items-end overflow-auto h-[142px] ${
           !hamburgerMenu ? "menuclose" : ""
         }`}
       >
@@ -318,7 +318,7 @@ function Header() {
   }
 
   return (
-    <div className="sticky left-0 right-0 top-0 flex justify-between sm:px-4 px-24 h-20 bg-bp-sec-300 items-center opacity-95 sm:h-16 sm:rounded-b-md">
+    <div className="absolute left-0 right-0 top-0 flex justify-between sm:px-4 px-24 h-20 bg-bp-sec-300 items-center opacity-95 sm:h-16 sm:rounded-b-md">
       <Image
         onClick={backToInit}
         src={imagetest}
@@ -331,7 +331,7 @@ function Header() {
       </span>
       <div
         onClick={() => onClickOpenHmbr()}
-        className="relative h-[80px] w-[80px] sm:w-fit sm:h-fit flex items-center justify-end sm:font-semibold text-[24px] sm:text-[20px] font-bold cursor-pointer text-bp-sec-900"
+        className="relative h-[80px] w-[80px] sm:w-fit sm:h-fit flex items-center justify-end sm:font-semibold text-[24px] font-bold cursor-pointer text-bp-sec-900"
       >
         <span
           className={`hover:text-bp-sec-700 duration-150 ${
